@@ -22,7 +22,8 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/Igniter-909/age_and_gender_prediction",
-    packages = find_packages(),
+    packages = find_packages(where="src"),
+    package_dir={"":"src"},
     install_requires = get_requirements("requirements.txt")
 )
 
