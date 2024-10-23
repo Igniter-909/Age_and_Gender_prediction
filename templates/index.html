@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age and Gender Predictor</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: fit-content;
+            background-color: black;
+        }
+
+        .header{
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            font-family: sans-serif;
+            padding: 1rem auto;
+            margin: 30px auto;
+        }
+
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .output{
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            font-family: sans-serif;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .output p{
+            color: black;
+            background-color: #fff;
+            padding: 10px auto;
+            margin: auto;
+            border: solid 1px black;
+            border-radius: 30%;
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        .footer{
+            color: white;
+            font-size: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            font-family: sans-serif;
+            padding: 20px;
+            margin: 20px auto;
+        }
+       
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>AGE AND GENDER PREDICTOR</h1>
+    </div>
+    <div class="main">
+        <div class="videoFrame">
+            <img src="{{ url_for('video_feed') }}" alt="Live Video Feed" width="720" height="480">
+        </div>
+        <div class="output">
+            <p>Age: <span id="predictedAge"></span></p>
+            <p>Gender: <span id="predictedGender"></span></p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2024 My Age and Gender Predictor. All rights reserved.</p>
+    </div>
+
+    <script>
+        function updatePredictions() {
+            $.getJSON('/predictions', function (data) {
+                $('#predictedAge').text(data.pred_age); 
+                $('#predictedGender').text(data.pred_gender);
+            });
+        }
+
+        $(document).ready(function () {
+            updatePredictions();
+            setInterval(updatePredictions, 5000); 
+        });
+    </script>
+</body>
+</html>
